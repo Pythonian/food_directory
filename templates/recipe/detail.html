@@ -1,0 +1,196 @@
+{% extends "base.html" %}
+{% block title %}{{ recipe.name }}{% endblock title %}
+
+{% block content %}
+
+<main class="container mt-5">
+    <div class="row">
+        <div class="col-lg-8 offset-lg-2">
+            <span><a href="{{ recipe.tribe.get_absolute_url }}" class="text-decoration-none">{{ recipe.tribe }}</a></span>
+            <h3 class="mb-2">{{ recipe.name }}</h3>
+            <div class="d-flex">
+            	<div>
+                    <a href="profile.html" class="d-block font-weight-bold text-decoration-none">Seyi Pythonian</a>
+                    <small class="text-muted">Feb 8, 2018 &bull; 4 min read</small>
+                </div>
+            </div>
+            {% if recipe.image %}
+            	<img class="my-3 img-fluid" src="{{ recipe.image.url }}">
+            {% endif %}
+            <p class="text-center"><small>{{ recipe.image_caption }}</small></p>
+            <div class="mb-5">
+                <h4>Ingredients</h4>
+                <ul>
+                	{% for ingredient in recipe.ingredient_set.all %}
+                    	<li>{{ ingredient.name }}</li>
+                    {% endfor %}
+	            </ul>
+	            <h4>Steps in Preparation</h4>
+	            <p>{{ recipe.preparation|linebreaks }}</p>
+            </div>
+            <div class="my-4">
+                <a class="badge badge-light px-3 py-2 mb-2 font-weight-normal" href="tag.html">#Champions League</a>
+                <a class="badge badge-light px-3 py-2 mb-2 font-weight-normal" href="tag.html">#Africa</a>
+                <a class="badge badge-light px-3 py-2 mb-2 font-weight-normal" href="tag.html">#Highlight</a>
+                <a class="badge badge-light px-3 py-2 mb-2 font-weight-normal" href="tag.html">#Enyimba FC</a>
+            </div>
+            <div
+                class="my-4 pt-3 border-top d-flex justify-content-between align-items-stretch flex-column flex-md-row">
+                <a href="post.html" class="text-decoration-none text-left d-flex align-items-center">
+                    <div class="mr-2"><i class="fa fa-angle-left"></i></div>
+                    <div>
+                        <strong>Previous Post</strong>
+                        <h6>50 ways more successful people live on their own terms.</h6>
+                    </div>
+                </a>
+                <a href="post.html"
+                    class="text-decoration-none text-right d-flex align-items-center justify-content-end">
+                    <div>
+                        <strong>Next Post</strong>
+                        <h6>It could be a featured, recommends or popular story.</h6>
+                    </div>
+                    <div class="ml-2"><i class="bi bi-angle-right"> </i></div>
+                </a>
+            </div>
+            <div class="d-flex">
+                <div class="mr-auto">
+                    <span class="mr-3">
+                        <small>
+                            <a href="#" title="Recommend this story"><i class="bi bi-heart"></i></a>
+                        </small> 63
+                    </span>
+                    <span>
+                        <small>
+                            <i class="bi bi-comment"></i>
+                        </small> 3.7K
+                    </span>
+                </div>
+                <small class="mr-4">
+                    <a href="#" title="Share on Facebook"><i class="fab fa-facebook fa-2x"></i></a>
+                </small>
+                <small class="mr-4">
+                    <a href="#" title="Share on Twitter"><i class="fab fa-twitter fa-2x"></i></a>
+                </small>
+                <small class="mr-4">
+                    <a href="#" title="Bookmark this story to read later"><i class="far fa-bookmark fa-2x"></i></a>
+                </small>
+                <small>
+                    <div class="dropdown">
+                        <a title="More actions" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+                            aria-expanded="false">
+                            <i class="fas fa-ellipsis-h fa-2x"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="#">Report story</a>
+                            <a class="dropdown-item" href="#">Block author</a>
+                        </div>
+                    </div>
+                </small>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="card mb-4 shadow-sm">
+                        <img class="card-img-top" src="images/350x150.png" alt="Image Caption">
+                        <div class="card-body">
+                            <small class="d-inline-block text-muted">Related story</small>
+                            <h5 class="card-title mb-3"><a href="post.html" class="text-decoration-none">50 ways
+                                    more successful people live on their own terms</a></h5>
+                            <div class="d-flex">
+                                <img class="rounded-circle mr-2" src="images/50x50.png">
+                                <div>
+                                    <a href="profile.html" class="d-block text-decoration-none">Seyi Pythonian</a>
+                                    <small class="text-muted">4 min read</small>
+                                </div>
+                                <div class="ml-auto pt-3">
+                                    <small class="text-muted"><a href="#"
+                                            title="Bookmark this story to read later"><i
+                                                class="far fa-bookmark fa-2x"></i></a></small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="card mb-4 shadow-sm">
+                        <img class="card-img-top" src="images/350x150.png" alt="Image Caption">
+                        <div class="card-body">
+                            <small class="d-inline-block text-muted">Also tagged Enyimba FC</small>
+                            <h5 class="card-title mb-3"><a href="post.html" class="text-decoration-none">This is a
+                                    post formatted with markdown</a></h5>
+                            <div class="d-flex">
+                                <img class="rounded-circle mr-2" src="images/50x50.png">
+                                <div>
+                                    <a href="profile.html" class="d-block text-decoration-none">Seyi Pythonian</a>
+                                    <small class="text-muted">4 min read</small>
+                                </div>
+                                <div class="ml-auto pt-3">
+                                    <small class="text-muted"><a href="#"
+                                            title="Bookmark this story to read later"><i
+                                                class="far fa-bookmark fa-2x"></i></a></small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="card mb-4 shadow-sm">
+                        <img class="card-img-top" src="images/350x150.png" alt="Image Caption">
+                        <div class="card-body">
+                            <small class="d-inline-block text-muted">More from Seyi Pythonian</small>
+                            <h5 class="card-title mb-3"><a href="post.html" class="text-decoration-none">It could be
+                                    a featured, recommends or popular story</a></h5>
+                            <div class="d-flex">
+                                <img class="rounded-circle mr-2" src="images/50x50.png">
+                                <div>
+                                    <a href="profile.html" class="d-block text-decoration-none">Seyi Pythonian</a>
+                                    <small class="text-muted">4 min read</small>
+                                </div>
+                                <div class="ml-auto pt-3">
+                                    <small class="text-muted"><a href="#"
+                                            title="Bookmark this story to read later"><i
+                                                class="far fa-bookmark fa-2x"></i></a></small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8 offset-lg-2">
+            <h6 class="pt-3 pb-2 mb-3">Leave a response</h6>
+            <div class="card mb-5">
+                <div class="card-body">
+                    <div class="media">
+                        <img class="mr-3 rounded-circle" src="images/50x50.png">
+                        <div class="media-body">
+                            <input type="text" class="form-control form-control-lg"
+                                placeholder="Start a conversation">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h6 class="pt-3 pb-2 mb-3">Responses (n)</h6>
+            <div class="card mb-3 shadow-sm">
+                <div class="card-body">
+                    <div class="media">
+                        <img class="mr-3 rounded-circle" src="images/50x50.png">
+                        <div class="media-body">
+                            <h6 class="m-0 p-0"><a href="profile.html" class="text-decoration-none">Seyi Pythonian</a></h6>
+                            <small class="text-muted">April 24, 2018</small>
+                            <p class="mb-2 mt-2">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card my-5 shadow-sm">
+                <div class="card-body text-center">
+                    <a href="#" class="text-decoration-none stretched-link">Show more responses</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}

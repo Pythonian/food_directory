@@ -5,6 +5,7 @@ from django.urls import reverse
 class Tribe(models.Model):
     name = models.CharField(max_length=50)
     slug = models.SlugField(max_length=50)
+    description = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -15,7 +16,7 @@ class Tribe(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('tribe:detail', kwargs={'slug': self.slug})
+        return reverse('recipe:tribe', kwargs={'slug': self.slug})
 
 
 class Recipe(models.Model):
@@ -36,6 +37,7 @@ class Recipe(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField(max_length=100)
     tribe = models.ForeignKey(Tribe, on_delete=models.CASCADE)
+    cooking_time = models.CharField(max_length=20)
     meal_period = models.CharField(
         max_length=1,
         choices=MEAL_PERIOD_CHOICES)
@@ -45,7 +47,6 @@ class Recipe(models.Model):
     image = models.ImageField(upload_to='recipes')
     image_caption = models.CharField(max_length=100)
     video = models.URLField(blank=True)
-    ingredients = models.TextField()
     preparation = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -58,3 +59,14 @@ class Recipe(models.Model):
 
     def get_absolute_url(self):
         return reverse('recipe:detail', kwargs={'slug': self.slug})
+
+
+class Ingredient(models.Model):
+    name = models.CharField(max_length=50)
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+
+    class Meta:
+        ordering = ['name']
+
+    def __str__(self):
+        return self.name
