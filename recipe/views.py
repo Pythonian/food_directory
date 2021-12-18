@@ -18,10 +18,12 @@ def home(request):
 
 def tribe(request, slug):
     tribe = get_object_or_404(Tribe, slug=slug)
+    recipes = Recipe.objects.filter(tribe=tribe)
 
     template = 'recipe/tribe.html'
     context = {
         'tribe': tribe,
+        'recipes': recipes,
     }
 
     return render(request, template, context)
