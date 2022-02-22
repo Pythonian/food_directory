@@ -1,9 +1,19 @@
 from django.contrib import admin
-from .models import Recipe, Tribe, Ingredient
+from .models import Recipe, Tribe, Ingredient, CookingTool, Preparation
 
 
 class IngredientInline(admin.StackedInline):
     model = Ingredient
+    extra = 1
+
+
+class CookingToolInline(admin.StackedInline):
+    model = CookingTool
+    extra = 1
+
+
+class PreparationInline(admin.StackedInline):
+    model = Preparation
     extra = 1
 
 
@@ -13,8 +23,8 @@ class RecipeAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
     search_fields = ['name']
     date_hierarchy = 'created'
-    list_filter = ['tribe__name', 'food_class', 'meal_period']
-    inlines = [IngredientInline]
+    list_filter = ['tribe__name', 'meal_period']
+    inlines = [IngredientInline, CookingToolInline, PreparationInline]
 
 
 @admin.register(Tribe)

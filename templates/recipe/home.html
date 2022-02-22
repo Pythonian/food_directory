@@ -12,10 +12,13 @@
                     <h1 class="display-5 fw-bolder text-white mb-2">Food Directory</h1>
                     <p class="lead text-white-50 mb-4">A directory listing of all the recipes from the three major tribes in Nigeria, and steps in preparing them with the required ingredients.</p>
                     <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
-                        <div class="input-group">
-						  	<input type="search" class="form-control form-control-lg" placeholder="Search recipe..." aria-label="Search" aria-describedby="search-icon">
-						  	<span class="input-group-text" id="search-icon"><i class="bi bi-search"></i></span>
-						</div>
+                        <form methods="GET" action="{# url 'recipe_search' #}">
+                            {% csrf_token %}
+                            <div class="input-group">
+                                <input type="search" class="form-control form-control-lg" placeholder="Search recipe..." name="q" aria-label="Search" aria-describedby="search-icon" value="{{ request.GET.q }}">
+                                <span class="input-group-text" id="search-icon"><i class="bi bi-search"></i></span>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -61,7 +64,7 @@
                         	<h4>{{ recipe.name }}</h4>
                         </div>
                         <ul class="list-unstyled mb-4">
-                        	{% for ingredient in recipe.ingredient_set.all %}
+                        	{% for ingredient in recipe.ingredients.all %}
                             <li class="mb-2">
                                 <i class="bi bi-check text-primary"></i>
                                 {{ ingredient.name }}
