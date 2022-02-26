@@ -1,11 +1,10 @@
 from django.contrib import messages
+from django.db.models import Q
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-from django.http.response import HttpResponseRedirect
 from django.shortcuts import redirect, render, get_object_or_404
-from django.urls import reverse
 
 from .forms import ReviewForm
-from .models import Recipe, Tribe, Review
+from .models import Recipe, Tribe
 
 
 def mk_paginator(request, items, num_items):
@@ -76,5 +75,12 @@ def recipe(request, slug):
     return render(request, template, context)
 
 
-def recipe_search(request):
-    pass
+def search(request):
+    q = request.GET.get('q', None)
+    recipes = ''
+    if q is None or q == "":
+        recipes = Recipe.objects.all()
+    elif q is not None:
+        recipes = Recipe.objects.filter(
+            Q(name__icontains=q) | Q(description__icontains=q))
+    return render(request, 'recipe/search.html', {'recipes': recipes})

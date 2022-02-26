@@ -32,6 +32,7 @@ class Recipe(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField(max_length=100)
     tribe = models.ForeignKey(Tribe, on_delete=models.CASCADE)
+    description = models.TextField()
     cooking_time = models.CharField(max_length=20)
     preparation_time = models.CharField(max_length=20)
     meal_period = models.CharField(
@@ -40,7 +41,7 @@ class Recipe(models.Model):
     servings = models.PositiveIntegerField()
     image = models.ImageField(upload_to='recipes')
     image_caption = models.CharField(max_length=100)
-    video = models.URLField(blank=True)
+    video = models.FileField(upload_to='videos/')
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -84,7 +85,7 @@ class Review(models.Model):
                                related_name='reviews')
     author = models.ForeignKey(settings.AUTH_USER_MODEL,
                                on_delete=models.CASCADE)
-    body = models.TextField()
+    body = models.TextField('Your Review')
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)

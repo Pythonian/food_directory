@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block title %}{{ recipe.name }}{% endblock title %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 
@@ -26,6 +27,10 @@
                 <div class="col-3">
                     <p>Servings: {{ recipe.servings }} persons</p>
                 </div>
+            </div>
+            <div class="row">
+                <h4 class="pb-2">About this Recipe</h4>
+                <p class="my-2">{{ recipe.description }}</p>
             </div>
             <div class="row mt-2 mb-4">
                 <div class="col-lg-6">
@@ -54,7 +59,44 @@
                 <hr>
                 <p>{{ preparation.text }}</p>
             {% endfor %}
-            <a href="{{ recipe.video }}" target="_blank">Click to watch video</a>
+
+            <h4 class="py-2">Watch Video Below</h4>
+            <div class="section d-flex justify-content-center embed-responsive embed-responsive-21by9">
+              <video class="embed-responsive-item" controls>
+                    <source src="{{ recipe.video.url }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video>
+            </div>
+
+            
+            <section class="my-5">
+                <h4 class="pb-2">Reviews</h4>
+                <div class="card bg-light">
+                    
+                    <div class="card-body">
+                        {% if request.user.is_authenticated %}
+                            <form class="mb-4" action="." method="post">
+                                {% csrf_token %}
+                                {{ form|crispy }}
+                                <button type="submit" class="btn btn-primary">Submit Review</button>
+                            </form>
+                            {% for review in reviews %}
+                            <div class="d-flex mb-2">
+                                <div class="ms-3">
+                                    <div class="fw-bold">Review by {{ review.author.username|title }}</div>
+                                    {{ review.body|linebreaks }}
+                                </div>
+                            </div>
+                            {% empty %}
+                            <p>There are currently no reviews for this recipe.</p>
+                            {% endfor %}
+                        {% else %}
+                            <p><a href="{% url 'login' %}">Login</a> to post a review</p>
+                        {% endif %}
+                    </div>
+                    
+                </div>
+            </section>
         </div>
     </div>
 </main>
