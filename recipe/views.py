@@ -82,5 +82,5 @@ def search(request):
         recipes = Recipe.objects.all()
     elif q is not None:
         recipes = Recipe.objects.filter(
-            Q(name__icontains=q) | Q(description__icontains=q))
+            Q(name__icontains=q) | Q(description__icontains=q)).distinct()
     return render(request, 'recipe/search.html', {'recipes': recipes})
