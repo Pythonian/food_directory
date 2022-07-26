@@ -15,8 +15,8 @@
                         <form method="GET" action="{% url 'recipe:search' %}">
                             <div class="input-group">
                                 <input id="q" name="q" value="{{ request.GET.q }}" class="form-control form-control-lg" type="search" placeholder="Search recipe..." aria-label="Search" aria-describedby="search-icon">
-                                <span class="input-group-text" id="search-icon"><i class="bi bi-search"></i></span>
-                            </div>
+                                <button type="submit" class="btn btn-primary">Search</button>
+                            </div>   
                         </form>
                     </div>
                 </div>

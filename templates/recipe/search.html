@@ -10,7 +10,7 @@
             <form method="GET" action="{% url 'recipe:search' %}">
                 <div class="input-group">
                     <input id="q" name="q" value="{{ request.GET.q }}" class="form-control form-control-lg" type="search" placeholder="Search recipe..." aria-label="Search" aria-describedby="search-icon">
-                    <span class="input-group-text" id="search-icon"><i class="bi bi-search"></i></span>
+                    <button type="submit" class="btn btn-primary">Search</button>
                 </div>
             </form>
         </div>
@@ -23,7 +23,7 @@
         <div class="row gx-5 mb-4">
         	{% for recipe in recipes %}
             <div class="col-lg-4">
-                <div class="card mb-5 mb-xl-0">
+                <div class="card mb-5">
                     <div class="card-body p-5">
                         <div class="mb-3">
                         	<h4>{{ recipe.name }}</h4>

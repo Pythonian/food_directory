@@ -71,6 +71,8 @@ class Ingredient(models.Model):
     recipe = models.ForeignKey(Recipe,
                                on_delete=models.CASCADE,
                                related_name='ingredients')
+    image = models.ImageField(upload_to='ingredients')
+    text = models.TextField(blank=True)
 
     class Meta:
         ordering = ['name']

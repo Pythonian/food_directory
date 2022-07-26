@@ -28,18 +28,10 @@
                     <p>Servings: {{ recipe.servings }} persons</p>
                 </div>
             </div>
-            <div class="row">
-                <h4 class="pb-2">About this Recipe</h4>
-                <p class="my-2">{{ recipe.description }}</p>
-            </div>
             <div class="row mt-2 mb-4">
                 <div class="col-lg-6">
-                    <h4 class="pb-2">Ingredients</h4>
-                    <ul class="list-group">
-                        {% for ingredient in recipe.ingredients.all %}
-                            <li class="list-group-item">{{ ingredient.name }}</li>
-                        {% endfor %}
-                    </ul>
+                    <h4 class="pb-2">About this Recipe</h4>
+                    <p class="my-2">{{ recipe.description }}</p>
                 </div>
                 <div class="col-lg-6">
                     <h4 class="pb-2">Cooking Tools Used</h4>
@@ -52,22 +44,41 @@
                     </ul>
                 </div>
             </div>
+            <div class="row mt-2 mb-4">
+                <div class="col-lg-12">
+                    <h4 class="pb-2">Ingredients</h4>
+                    <hr>
+                    <ul class="list-group">
+                        {% for ingredient in recipe.ingredients.all %}
+                            <li class="list-group-item">
+                                {% if ingredient.image %}
+                                <img class="img-fluid me-4" src="{{ ingredient.image.url }}" width="200px" height="200px">
+                                {% endif %}
+                                <span class="align-top fs-5">{{ ingredient.name }}</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                
+            </div>
                 
             <h4 class="pb-2">Steps in Preparation</h4>
+            <hr>
             {% for preparation in recipe.preparations.all %}
                 <h6 class="text-uppercase">step {{ preparation.id }}</h6>
                 <hr>
                 <p>{{ preparation.text }}</p>
             {% endfor %}
 
+            {% if recipe.video %}
             <h4 class="py-2">Watch Video Below</h4>
-            <div class="section d-flex justify-content-center embed-responsive embed-responsive-21by9">
-              <video class="embed-responsive-item" controls>
+            <div class="section d-flex justify-content-center ratio ratio-16x9">
+              <video controls>
                     <source src="{{ recipe.video.url }}" type="video/mp4">
                     Your browser does not support the video tag.
                   </video>
             </div>
-
+            {% endif %}
             
             <section class="my-5">
                 <h4 class="pb-2">Reviews</h4>
