@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'recipe.apps.RecipeConfig',
+    'account',
     'crispy_forms',
     'crispy_bootstrap5',
 ]
@@ -133,6 +134,10 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+DEFAULT_FROM_EMAIL = 'admin@foodrecipe.com'
 
 LOGOUT_REDIRECT_URL = 'recipe:home'
 

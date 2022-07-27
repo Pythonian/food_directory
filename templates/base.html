@@ -29,7 +29,7 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 {% if user.is_authenticated %}
                                     <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
-                                    <li><a class="dropdown-item" href="{# url 'profile' #}">Profile</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
                                 {% else %}
                                     <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
                                     <li><a class="dropdown-item" href="{% url 'signup' %}">Register</a></li>

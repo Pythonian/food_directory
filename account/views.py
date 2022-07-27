@@ -1,4 +1,4 @@
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from django.views.generic import CreateView
 from django.contrib.messages.views import SuccessMessageMixin
@@ -16,3 +16,7 @@ class SignUpView(SuccessMessageMixin, CreateView):
         user = form.save()
         login(self.request, user)
         return redirect('recipe:home')
+
+
+def profile(request):
+    return render(request, 'profile.html', {'user': request.user})

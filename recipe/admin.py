@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.contrib.auth import get_user_model
+from django.core.mail import send_mass_mail
 from .models import Recipe, Tribe, Ingredient, CookingTool, Preparation
 
 
@@ -25,6 +27,17 @@ class RecipeAdmin(admin.ModelAdmin):
     date_hierarchy = 'created'
     list_filter = ['tribe__name', 'meal_period']
     inlines = [IngredientInline, CookingToolInline, PreparationInline]
+
+    def save_model(self, request, obj, form, change):
+        all_users = get_user_model().objects.all()
+        subject = 'New recipe created.'
+        message = 'A new recipe has just been created on our website.'
+        data = [
+            (subject, message, "admin@foodrecipe.com", [user.email])
+            for user in all_users
+        ]
+        send_mass_mail(data)
+        super().save_model(request, obj, form, change)
 
 
 @admin.register(Tribe)
