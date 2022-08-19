@@ -16,16 +16,16 @@
             <p class="text-center"><small>{{ recipe.image_caption }}</small></p>
             <div class="row">
                 <div class="col-3">
-                    <p>Cook time: {{ recipe.cooking_time }}</p>
+                    <p><b>Cook time:</b> {{ recipe.cooking_time }}</p>
                 </div>
                 <div class="col-3">
-                    <p>Best Eaten: {{ recipe.get_meal_period_display }}</p>
+                    <p><b>Best Eaten:</b> {{ recipe.get_meal_period_display }}</p>
                 </div>
                 <div class="col-3">
-                    <p>Preparation time: {{ recipe.preparation_time }}</p>
+                    <p><b>Preparation time:</b> {{ recipe.preparation_time }}</p>
                 </div>
                 <div class="col-3">
-                    <p>Servings: {{ recipe.servings }} persons</p>
+                    <p><b>Servings:</b> {{ recipe.servings }} persons</p>
                 </div>
             </div>
             <div class="row mt-2 mb-4">
@@ -48,17 +48,19 @@
                 <div class="col-lg-12">
                     <h4 class="pb-2">Ingredients</h4>
                     <hr>
-                    <ul class="list-group">
-                        {% for ingredient in recipe.ingredients.all %}
-                            <li class="list-group-item">
-                                {% if ingredient.image %}
-                                <img class="img-fluid me-4" src="{{ ingredient.image.url }}" width="200px" height="200px">
-                                {% endif %}
-                                <span class="align-top fs-5">{{ ingredient.name }}</span>
-                                <span class="align-base">{{ ingredient.text }}</span>
-                            </li>
-                        {% endfor %}
-                    </ul>
+                    {% for ingredient in recipe.ingredients.all %}
+                    <div class="d-flex mb-3">
+                        <div class="flex-shrink-0">
+                            {% if ingredient.image %}
+                            <img class="img-fluid me-4" src="{{ ingredient.image.url }}" width="100px" height="100px">
+                            {% endif %}
+                        </div>
+                        <div class="flex-grow-1">
+                            <p class="fw-bold mb-1">{{ ingredient.name }}</p>
+                            <p>{{ ingredient.text }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
                 </div>
                 
             </div>
@@ -94,7 +96,10 @@
                             </form>
                             {% for review in reviews %}
                             <div class="d-flex mb-2">
-                                <div class="ms-3">
+                                <div class="flex-shrink-0 circle rounded-circle text-center bg-primary">
+                                    <span class="initials position-relative lh-1">{{ review.author|make_list|first|title }}</span>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
                                     <div class="fw-bold">Review by {{ review.author.username|title }}</div>
                                     {{ review.body|linebreaks }}
                                 </div>

@@ -3,17 +3,19 @@
 
 {% block content %}
 
-<section class="py-5">
-    <div class="container px-5 my-5">
-        <div class="text-center mb-5">
-            <h1 class="fw-bolder">Search</h1>
-            <form method="GET" action="{% url 'recipe:search' %}">
-                <div class="input-group">
-                    <input id="q" name="q" value="{{ request.GET.q }}" class="form-control form-control-lg" type="search" placeholder="Search recipe..." aria-label="Search" aria-describedby="search-icon">
-                    <button type="submit" class="btn btn-primary">Search</button>
-                </div>
-            </form>
-        </div>
+<section class="container px-3 my-5">
+    <div class="row">
+        <div class="col-lg-6 mx-auto">
+            <div class="text-center">
+                <h1 class="fw-bolder">Search</h1>
+                <form method="GET" action="{% url 'recipe:search' %}">
+                    <div class="input-group">
+                        <input id="q" name="q" value="{{ request.GET.q }}" class="form-control form-control-lg" type="search" placeholder="Search recipe..." aria-label="Search">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
+                </form>
+            </div>
+        </div>        
     </div>
 </section>
 

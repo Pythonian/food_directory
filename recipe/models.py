@@ -87,7 +87,7 @@ class Review(models.Model):
                                related_name='reviews')
     author = models.ForeignKey(settings.AUTH_USER_MODEL,
                                on_delete=models.CASCADE)
-    body = models.TextField('Your Review')
+    body = models.CharField('Your Review', max_length=1000)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)

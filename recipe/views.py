@@ -24,7 +24,7 @@ def mk_paginator(request, items, num_items):
 
 def home(request):
     tribes = Tribe.objects.all()
-    featured_recipes = Recipe.objects.all()[:3]
+    featured_recipes = Recipe.objects.order_by("?")[:3]
 
     template = 'recipe/home.html'
     context = {
@@ -38,7 +38,7 @@ def home(request):
 def tribe(request, slug):
     tribe = get_object_or_404(Tribe, slug=slug)
     recipes = Recipe.objects.filter(tribe=tribe)
-    recipes = mk_paginator(request, recipes, 2)
+    recipes = mk_paginator(request, recipes, 10)
 
     template = 'recipe/tribe.html'
     context = {
