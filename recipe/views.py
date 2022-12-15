@@ -24,12 +24,16 @@ def mk_paginator(request, items, num_items):
 
 def home(request):
     tribes = Tribe.objects.all()
-    featured_recipes = Recipe.objects.order_by("?")[:3]
+    trending_recipes = Recipe.objects.order_by("?")[:3]
+    latest_recipes = Recipe.objects.order_by("-created")[:5]
+    featured_recipes = Recipe.objects.filter(featured=True)
 
     template = 'recipe/home.html'
     context = {
         'tribes': tribes,
         'featured_recipes': featured_recipes,
+        'trending_recipes': trending_recipes,
+        'latest_recipes': latest_recipes,
     }
 
     return render(request, template, context)

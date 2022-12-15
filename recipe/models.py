@@ -42,11 +42,19 @@ class Recipe(models.Model):
     image = models.ImageField(upload_to='recipes')
     image_caption = models.CharField(max_length=100)
     video = models.FileField(upload_to='videos/')
+    featured = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ['name']
+        ordering = ['-created']
+        get_latest_by = 'created'
+
+    def get_previous_recipe(self):
+        return self.get_previous_by_created()
+
+    def get_next_recipe(self):
+        return self.get_next_by_created()
 
     def __str__(self):
         return self.name

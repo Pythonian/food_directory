@@ -1,31 +1,41 @@
 {% extends "base.html" %}
-{% load crispy_forms_tags %}
-{% block title %}Login{% endblock title %}
+
+{% block title %}Login{% endblock %}
 
 {% block content %}
 
-<main>
+<!-- Login Area Start Here -->
+<section class="login-page-wrap padding-top-80 padding-bottom-50">
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-5">
-                <div class="card shadow-lg border-0 rounded-lg my-5">
-                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
-                    <div class="card-body">
-                        <form method="post" action="">
-                            {% csrf_token %}
-                            {{ form|crispy }}
-                            <div class="mt-4 mb-0">
-                                <button class="btn btn-primary" type="submit">Login</button>
+        <div class="row gutters-60">
+            <div class="col-lg-8">
+                <div class="login-box-layout1">
+                    <div class="section-heading heading-dark">
+                        <h2 class="item-heading">LOGIN FORM</h2>
+                    </div>
+                    <form class="login-form" method="post" action="">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="mb-3">Username</label>
+                                <input type="text" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150"
+                                    class="main-input-box" required id="id_username">
                             </div>
-                        </form>
-                    </div>
-                    <div class="card-footer text-center py-3">
-                        <div class="small"><a href="{% url 'signup' %}">Need an account? Register!</a></div>
-                    </div>
+                            <div class="col-md-6">
+                                <label class="mb-3">Password</label>
+                                <input type="password" name="password" autocomplete="current-password" class="main-input-box" required id="id_password">
+                            </div>
+                        </div>
+                        <div class="btn-area">
+                            <button class="btn-fill btn-primary" type="submit" value="Login">Login</button>
+                            <a class="btn-fill btn-dark" href="{% url 'signup' %}">Create an Account</a>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-</main>
+</section>
+<!-- Login Area End Here -->
 
 {% endblock %}

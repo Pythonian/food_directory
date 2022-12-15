@@ -1,44 +1,57 @@
 {% extends "base.html" %}
-{% block title %}{{ tribe }} Tribe{% endblock title %}
+{% load static %}
+{% block title %}{{ tribe.name }}{% endblock title %}
 
 {% block content %}
-<section class="container px-3 my-5">
-    <div class="row">
-        <div class="col-lg-6 mx-auto">
-            <div class="text-center">
-                <h1 class="fw-bolder">{{ tribe }} Recipes</h1>
-                <p class="lead fw-normal text-muted mb-0">List of local recipes of the {{ tribe }} tribe.</p>
+
+<!-- Inne Page Banner Area Start Here -->
+<section class="inner-page-banner bg-common" data-bg-image="{% static 'img/inner-page-banner1.jpg' %}">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumbs-area">
+                    <h1>{{ tribe.name }}</h1>
+                    <ul>
+                        <li>
+                            <a href="{% url 'recipe:home' %}">Home</a>
+                        </li>
+                        <li>{{ tribe.name }}</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
 </section>
+<!-- Inne Page Banner Area End Here -->
 
-<!-- Recipes by Tribe -->
-<section class="bg-light py-5 border-bottom">
-    <div class="container px-5 my-5">
-        <div class="row gx-5 mb-4">
-        	{% for recipe in recipes %}
-            <div class="col-lg-4">
-                <div class="card mb-5 mb-xl-0">
-                    <div class="card-body p-5">
-                        <div class="mb-3">
-                        	<h4>{{ recipe.name }}</h4>
-                        </div>
-                        <ul class="list-unstyled mb-4">
-                        	{% for ingredient in recipe.ingredients.all %}
-                            <li class="mb-2">
-                                <i class="bi bi-check text-primary"></i>
-                                {{ ingredient.name }}
+<section class="category-page-wrap padding-top-80 padding-bottom-50">
+    <div class="container">
+        <div class="row">
+            {% for recipe in recipes %}
+            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                <div class="product-box-layout1">
+                    <figure class="item-figure"><a href="{{ recipe.get_absolute_url }}"><img src="{{ recipe.image.url }}"
+                                alt="Product"></a></figure>
+                    <div class="item-content">
+                        <span class="sub-title">{{ recipe.get_meal_period_display|upper }}</span>
+                        <h3 class="item-title"><a href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a></h3>
+                        <ul class="item-rating">
+                            <li class="star-fill"><i class="fas fa-star"></i></li>
+                            <li class="star-fill"><i class="fas fa-star"></i></li>
+                            <li class="star-fill"><i class="fas fa-star"></i></li>
+                            <li class="star-fill"><i class="fas fa-star"></i></li>
+                            <li class="star-fill"><i class="fas fa-star"></i></li>
                             </li>
-                            {% endfor %}
                         </ul>
-                        <div class="d-grid"><a class="btn btn-outline-primary" href="{{ recipe.get_absolute_url }}">Preparations</a></div>
+                        <ul class="entry-meta">
+                            <li><a href="#"><i class="fas fa-clock"></i>{{ recipe.cooking_time }}</a></li>
+                            <li><a href="#"><i class="fas fa-user"></i>by <span>ADMIN</span></a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
             {% endfor %}
         </div>
-        {% include 'recipe/_pagination.html' with page_obj=recipes %}        
     </div>
 </section>
 

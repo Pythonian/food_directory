@@ -3,84 +3,103 @@
 
 {% block content %}
 
-<!-- Header-->
-<header class="bg-dark py-5">
-    <div class="container px-5">
-        <div class="row gx-5 justify-content-center">
-            <div class="col-lg-6">
-                <div class="text-center my-5">
-                    <h1 class="display-5 fw-bolder text-white mb-2">Food Directory</h1>
-                    <p class="lead text-white-50 mb-4">A directory listing of all the recipes from the three major tribes in Nigeria, and steps in preparing them with the required ingredients.</p>
-                    <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
-                        <form method="GET" action="{% url 'recipe:search' %}">
-                            <div class="input-group">
-                                <input id="q" name="q" value="{{ request.GET.q }}" class="form-control form-control-lg" type="search" placeholder="Search recipe..." aria-label="Search" aria-describedby="search-icon">
-                                <button type="submit" class="btn btn-primary">Search</button>
-                            </div>   
-                        </form>
+<!-- Random Recipe Start Here -->
+<section class="padding-bottom-18">
+    <div class="container">
+        <div class="row">
+            {% for recipe in trending_recipes %}
+            <div class="col-lg-4 {% if forloop.last %}d-block d-md-none d-lg-block{% else %}col-md-6{% endif %} col-sm-12">
+                <div class="product-box-layout1">
+                    <figure class="item-figure"><a href="{{ recipe.get_absolute_url }}"><img src="{{ recipe.image.url }}"
+                                alt="Product"></a></figure>
+                    <div class="item-content">
+                        <span class="sub-title">{{ recipe.get_meal_period_display|upper }}</span>
+                        <h3 class="item-title"><a href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a></h3>
+                        <ul class="item-rating">
+                            <li class="star-fill"><i class="fas fa-star"></i></li>
+                            <li class="star-fill"><i class="fas fa-star"></i></li>
+                            <li class="star-fill"><i class="fas fa-star"></i></li>
+                            <li class="star-fill"><i class="fas fa-star"></i></li>
+                            <li class="star-fill"><i class="fas fa-star"></i></li>
+                            </li>
+                        </ul>
+                        <ul class="entry-meta">
+                            <li><a href="#"><i class="fas fa-clock"></i>{{ recipe.cooking_time }}</a></li>
+                            <li><a href="#"><i class="fas fa-user"></i>by <span>ADMIN</span></a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</header>
-
-<!-- Tribe section -->
-<section class="py-5 border-bottom">
-    <div class="container px-5 my-5">
-        <div class="text-center mb-5">
-            <h2 class="fw-bolder">Tribes</h2>
-        </div>
-        <div class="row gx-5 justify-content-center">
-        	{% for tribe in tribes %}
-            <div class="col-lg-6 col-xl-4">
-                <div class="card text-center mb-5 mb-xl-0">
-                    <div class="card-body p-5">
-                    	<h3 class="card-title mb-3">{{ tribe.name }}</h3>
-                    	<p class="card-text">{{ tribe.description }}</p>
-                    	<a href="{{ tribe.get_absolute_url }}" class="btn btn-primary">View Recipes</a>
-                    </div>
-                </div>
-            </div>
-            {% empty %} 
-            No record found.
             {% endfor %}
         </div>
     </div>
 </section>
+<!-- Random Recipe End Here -->
 
-<!-- Featured recipe -->
-<section class="bg-light py-5 border-bottom">
-    <div class="container px-5 my-5">
-        <div class="text-center mb-5">
-            <h2 class="fw-bolder">Featured Recipes</h2>
-        </div>
-        <div class="row gx-5 justify-content-center">
-        	{% for recipe in featured_recipes %}
-            <div class="col-lg-6 col-xl-4">
-                <div class="card mb-5 mb-xl-0">
-                    <div class="card-body p-5">
-                        <div class="small text-uppercase fw-bold text-muted">{{ recipe.tribe }}</div>
-                        <div class="mb-3">
-                        	<h4>{{ recipe.name }}</h4>
+<!-- Featured Recipe Start Here -->
+<section class="padding-bottom-45">
+    <div class="container">
+        <div class="row gutters-60">
+            <div class="col-lg-8">
+                <div class="section-heading heading-dark">
+                    <h2 class="item-heading">FEATURED RECIPES</h2>
+                </div>
+                <div class="row">
+                    {% for recipe in featured_recipes %}
+                    <div class="col-md-6 col-sm-6 col-12">
+                        <div class="product-box-layout1">
+                            <figure class="item-figure"><a href="{{ recipe.get_absolute_url }}"><img
+                                        src="{{ recipe.image.url }}" alt="Product"></a></figure>
+                            <div class="item-content">
+                                <span class="sub-title">{{ recipe.tribe }}</span>
+                                <h3 class="item-title"><a href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a>
+                                </h3>
+                                <ul class="item-rating">
+                                    <li class="star-fill"><i class="fas fa-star"></i></li>
+                                    <li class="star-fill"><i class="fas fa-star"></i></li>
+                                    <li class="star-fill"><i class="fas fa-star"></i></li>
+                                    <li class="star-fill"><i class="fas fa-star"></i></li>
+                                    <li class="star-fill"><i class="fas fa-star"></i></li>
+                                    </li>
+                                </ul>
+                                <p>{{ recipe.description|truncatechars:105 }}</p>
+                                <ul class="entry-meta">
+                                    <li><a href="#"><i class="fas fa-clock"></i>{{ recipe.cooking_time }}</a></li>
+                                    <li><a href="#"><i class="fas fa-user"></i>by <span>ADMIN</span></a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                        <ul class="list-unstyled mb-4">
-                        	{% for ingredient in recipe.ingredients.all %}
-                            <li class="mb-2">
-                                <i class="bi bi-check text-primary"></i>
-                                {{ ingredient.name }}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-lg-4 sidebar-widget-area sidebar-break-md">
+                <div class="widget">
+                    <div class="section-heading heading-dark">
+                        <h3 class="item-heading">LATEST RECIPES</h3>
+                    </div>
+                    <div class="widget-latest">
+                        <ul class="block-list">
+                            {% for recipe in latest_recipes %}
+                            <li class="single-item">
+                                <div class="item-img">
+                                    <a href="#"><img src="{{ recipe.image.url }}" width="90" height="90" alt="Post"></a>
+                                    <div class="count-number">{{ forloop.counter }}</div>
+                                </div>
+                                <div class="item-content">
+                                    <div class="item-ctg">{{ recipe.get_meal_period_display }}</div>
+                                    <h4 class="item-title"><a href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a></h4>
+                                </div>
                             </li>
                             {% endfor %}
                         </ul>
-                        <div class="d-grid"><a class="btn btn-outline-primary" href="{{ recipe.get_absolute_url }}">Preparations</a></div>
                     </div>
                 </div>
             </div>
-            {% empty %}
-            No record found.
-            {% endfor %}
         </div>
     </div>
 </section>
+<!-- Trending Recipe End Here -->
 
 {% endblock content %}
